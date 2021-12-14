@@ -6,5 +6,5 @@
     "vm.dirty_bytes"            = 300000000;
     "vm.swappiness"             = 10;
   };
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+#  boot.kernelPackages = pkgs.linuxPackages;
 }

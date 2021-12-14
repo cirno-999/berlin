@@ -1,7 +1,14 @@
 { pkgs, ... }:
 
+let
+  unstable = import <unstable> {};
+in
 {
-  nixpkgs.overlays = [(self: super: { pkg2zip = self.callPackage ./pkg2zip.nix { }; pcem = self.callPackage ./pcem.nix { }; mygroff = self.callPackage ./groff/default.nix { }; })];
+  nixpkgs.overlays = [(self: super: {
+  pkg2zip = self.callPackage ./pkg2zip.nix { };
+  pcem = self.callPackage ./pcem.nix { };
+  torrent7z = self.callPackage ./torrent7z.nix { };
+  })];
   environment.systemPackages = let
     nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
       export __NV_PRIME_RENDER_OFFLOAD=1
@@ -11,23 +18,38 @@
       exec -a "$0" "$@"
     '';
   in [
+  unstable.runelite
+  unstable.lollypop
+  unstable.mgba
+  unstable.helvum
+  unstable.jdk17_headless
   nvidia-offload
+  pkgs.SDL2
+  pkgs.freac
+  pkgs.libsForQt5.kdeconnect-kde
+  pkgs.mangohud
+  pkgs.steamcmd
+  pkgs.anydesk
+  pkgs.ardour
+  pkgs.rawtherapee
+  pkgs.torrent7z
+  pkgs.w3m
+  pkgs.imagemagick
   pkgs.vim
   pkgs.pkg2zip
-  pkgs.pcem
+#  pkgs.pcem
   pkgs.firefox
   pkgs.xarchiver
   pkgs.xfce.mousepad
   pkgs.awesome
-  pkgs.gcc
   pkgs.scrot
-  pkgs.gimp
+  pkgs.gimp-with-plugins
   pkgs.signal-desktop
   pkgs.filezilla
   pkgs.ntfs3g
   pkgs.mpv
   pkgs.ghc
-  pkgs.wine
+  pkgs.wineWowPackages.stable
   pkgs.wine-staging
   pkgs.unzip
   pkgs.mktorrent
@@ -51,21 +73,19 @@
   pkgs.brasero
   pkgs.python3
   pkgs.file
-  pkgs.kdeApplications.dolphin-plugins
+  pkgs.libsForQt5.dolphin-plugins
   pkgs.ark
   pkgs.neofetch
   pkgs.obs-studio
   pkgs.whipper
   pkgs.htop
-  pkgs.kdeApplications.okular
+  pkgs.okular
   pkgs.pciutils
   pkgs.glxinfo
   pkgs.steam
-  pkgs.steam-run-native  
+  pkgs.steam-run-native
   pkgs.appimage-run
-  pkgs.lutris
   pkgs.youtube-dl
-  pkgs.vlc
   pkgs.audacity
   pkgs.usbutils
   pkgs.krita
@@ -81,15 +101,21 @@
   pkgs.kdenlive
   pkgs.mediainfo
   pkgs.viewnior
-  pkgs.mygroff
+  pkgs.groff
   pkgs.zathura
   pkgs.clementine
   pkgs.blender
   pkgs.wacomtablet
   pkgs.renpy
-  pkgs.atom
   pkgs.gnumake
+  (pkgs.pass.withExtensions (exts: [ exts.pass-otp ]))
+#  pkgs.tor-browser-bundle-bin
+  pkgs.bochs
+  pkgs.winetricks
+  pkgs.electrum
   ];
+
+  programs.gnupg.agent.enable = true;
 
   programs.cdemu.enable = true;
   programs.cdemu.gui = true;

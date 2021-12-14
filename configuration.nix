@@ -16,7 +16,8 @@
       ./system.nix
       ./fonts.nix
       ./packages.nix
-      ./wireguard.nix
+      ./samba.nix
+#      ./wireguard.nix
     ];
 }
 

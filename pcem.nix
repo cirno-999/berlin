@@ -2,7 +2,7 @@
 stdenv.mkDerivation {
   name = "pcem";
   src = fetchzip {
-    url = "https://pcem-emulator.co.uk/files/PCemV16Linux.tar.gz";
+    url = "http://pcem-emulator.co.uk/files/PCemV16Linux.tar.gz";
     sha256 = "l3A4tjct26DkS7jmhoylcpfGtXfMg9EIx3owzoQLAaw=";
     stripRoot = false;
   };
